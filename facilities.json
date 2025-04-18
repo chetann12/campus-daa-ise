@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Gym",
+    "description": "Fully equipped gym for students and staff.",
+    "slots": [
+      { "timeRange": "9am-12pm", "capacity": 50 },
+      { "timeRange": "1pm-3pm", "capacity":  50},
+      { "timeRange": "4pm-6pm", "capacity": 50 }
+    ]
+  },
+  {
+    "name": "Tennis Court",
+    "description": "Outdoor tennis court available for singles and doubles.",
+    "slots": [
+      { "timeRange": "9am-12pm", "capacity": 2 },
+      { "timeRange": "1pm-3pm", "capacity": 2},
+      { "timeRange": "4pm-6pm", "capacity": 2 }
+    ]
+  },
+  {
+    "name": "Auditorium",
+    "description": "Spacious auditorium for events, presentations, and seminars.",
+    "slots": [
+      { "timeRange": "9am-12pm", "capacity": 1 },
+      { "timeRange": "1pm-3pm", "capacity": 1 },
+      { "timeRange": "4pm-6pm", "capacity": 1 }
+    ]
+  },
+  {
+    "name": "Cricket Ground",
+    "description": "Well-maintained cricket ground for matches and practice.",
+    "slots": [
+      { "timeRange": "9am-12pm", "capacity": 1 },
+      { "timeRange": "1pm-3pm", "capacity": 1 },
+      { "timeRange": "4pm-6pm", "capacity": 1 }
+    ]
+  },
+  {
+    "name": "Volleyball Court",
+    "description": "Sand volleyball court available for team games.",
+    "slots": [
+      { "timeRange": "9am-12pm", "capacity": 2 },
+      { "timeRange": "1pm-3pm", "capacity": 2 },
+      { "timeRange": "4pm-6pm", "capacity": 2 }
+    ]
+  }
+]
