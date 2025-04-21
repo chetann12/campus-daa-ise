@@ -97,7 +97,10 @@ const Facilities = () => {
           </option>
         ))}
       </select>
-
+      <label>
+        <input type="checkbox" name="allowAlternate" /> Book alternate classroom
+        if full
+      </label>
       {selectedFacility && (
         <div style={{ marginTop: "1rem" }}>
           <label>Select Date: </label>

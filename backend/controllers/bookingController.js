@@ -1,6 +1,8 @@
 const Booking = require("../models/Booking");
 const Facility = require("../models/Facility");
 const User = require("../models/User");
+const ClassroomGraph = require("../models/ClassroomGraph");
+const { dijkstra } = require("../utils/graph");
 
 const PRIORITY_MAP = {
   faculty: 3,
@@ -38,7 +40,7 @@ function knapsackBooking(requests, capacity) {
 // Book a slot
 exports.bookSlot = async (req, res) => {
   const { facilityId } = req.params;
-  const { slotTime, date } = req.body;
+  const { slotTime, date, allowAlternate } = req.body; // ⭐ Add allowAlternate from frontend
 
   try {
     const facility = await Facility.findById(facilityId);
@@ -64,7 +66,7 @@ exports.bookSlot = async (req, res) => {
     const user = await User.findById(req.user.id);
     const rolePriority = PRIORITY_MAP[user.role] || 1;
 
-    // Check if slot is full
+    // If slot is full
     if (slot.booked >= slot.capacity) {
       const allBookings = await Booking.find({
         facilityId,
@@ -72,25 +74,72 @@ exports.bookSlot = async (req, res) => {
         date,
       }).populate("userId");
 
-      // Prepare request list
       const allRequests = allBookings.map((b) => ({
         id: b._id.toString(),
         userId: b.userId._id.toString(),
         value: PRIORITY_MAP[b.userId.role] || 1,
       }));
 
-      // Include current request for evaluation
       allRequests.push({
         id: "current",
         userId: req.user.id,
         value: rolePriority,
       });
 
-      // Run knapsack
       const accepted = knapsackBooking(allRequests, slot.capacity);
       const isAccepted = accepted.some((r) => r.id === "current");
 
       if (!isAccepted) {
+        // ⭐ Check for alternate classroom if allowed and classroom_*
+        if (allowAlternate && facility.name.startsWith("classroom_")) {
+          const graphDoc = await ClassroomGraph.findOne();
+          if (!graphDoc) {
+            return res
+              .status(500)
+              .json({ message: "Classroom graph not found" });
+          }
+
+          const graph = graphDoc.graph;
+          const distances = dijkstra(graph, facility.name);
+          const sorted = Object.entries(distances)
+            .sort((a, b) => a[1] - b[1])
+            .map(([name]) => name);
+
+          const allClassrooms = await Facility.find({
+            name: { $regex: /^classroom_/ },
+          });
+
+          for (let name of sorted) {
+            if (name === facility.name) continue;
+
+            const alt = allClassrooms.find((f) => f.name === name);
+            const altSlot = alt?.slots.find((s) => s.timeRange === slotTime);
+
+            if (altSlot && altSlot.booked < altSlot.capacity) {
+              altSlot.booked += 1;
+              altSlot.bookings.push({ userId: req.user.id, date, slotTime });
+              await alt.save();
+
+              const booking = await Booking.create({
+                userId: req.user.id,
+                facilityId: alt._id,
+                slotTime,
+                date,
+              });
+
+              return res.status(201).json({
+                message: `Original classroom full. Booked alternate: ${alt.name}`,
+                booking,
+              });
+            }
+          }
+
+          return res.status(400).json({
+            message:
+              "Slot full and no alternate classrooms available at this time.",
+          });
+        }
+
         return res.status(400).json({
           message:
             "Slot full. Your booking was not prioritized for this time slot.",
@@ -98,7 +147,7 @@ exports.bookSlot = async (req, res) => {
       }
     }
 
-    // Proceed to book for current user
+    // Proceed with booking
     slot.booked += 1;
     slot.bookings.push({ userId: req.user.id, date, slotTime });
     await facility.save();

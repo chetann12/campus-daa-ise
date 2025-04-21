@@ -1,0 +1,170 @@
+[{
+  "_id": {
+    "$oid": "67ff7eab48459736b16f248a"
+  },
+  "name": "Gym",
+  "description": "Fully equipped gym for students and staff.",
+  "slots": [
+    {
+      "timeRange": "9am-12pm",
+      "capacity": 50,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "1pm-3pm",
+      "capacity": 50,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "4pm-6pm",
+      "capacity": 50,
+      "booked": 0,
+      "bookings": []
+    }
+  ],
+  "__v": 5
+},
+{
+  "_id": {
+    "$oid": "67ff7eab48459736b16f248b"
+  },
+  "name": "Tennis Court",
+  "description": "Outdoor tennis court available for singles and doubles.",
+  "slots": [
+    {
+      "timeRange": "9am-12pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": [
+        {
+          "userId": {
+            "$oid": "67ff7caa9787438f4f6d37ca"
+          },
+          "date": "2025-04-18",
+          "_id": {
+            "$oid": "6801476981d0e5a1bde4888e"
+          }
+        }
+      ]
+    },
+    {
+      "timeRange": "1pm-3pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "4pm-6pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": []
+    }
+  ],
+  "__v": 9
+},
+{
+  "_id": {
+    "$oid": "67ff7eab48459736b16f248c"
+  },
+  "name": "Auditorium",
+  "description": "Spacious auditorium for events, presentations, and seminars.",
+  "slots": [
+    {
+      "timeRange": "9am-12pm",
+      "capacity": 1,
+      "booked": 0,
+      "bookings": [
+        {
+          "userId": {
+            "$oid": "67ff7caa9787438f4f6d37ca"
+          },
+          "date": "2025-04-20",
+          "_id": {
+            "$oid": "6801f9a91b22ec4e9869d646"
+          }
+        }
+      ]
+    },
+    {
+      "timeRange": "1pm-3pm",
+      "capacity": 1,
+      "booked": 0,
+      "bookings": [
+        {
+          "userId": {
+            "$oid": "68021eda6c3c251b01874294"
+          },
+          "date": "2025-04-19",
+          "_id": {
+            "$oid": "68021ef06c3c251b018742c9"
+          }
+        }
+      ]
+    },
+    {
+      "timeRange": "4pm-6pm",
+      "capacity": 1,
+      "booked": 0,
+      "bookings": []
+    }
+  ],
+  "__v": 10
+},
+{
+  "_id": {
+    "$oid": "67ff7eab48459736b16f248d"
+  },
+  "name": "Cricket Ground",
+  "description": "Well-maintained cricket ground for matches and practice.",
+  "slots": [
+    {
+      "timeRange": "9am-12pm",
+      "capacity": 1,
+      "bookings": [],
+      "booked": 0
+    },
+    {
+      "timeRange": "1pm-3pm",
+      "capacity": 1,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "4pm-6pm",
+      "capacity": 1,
+      "booked": 0,
+      "bookings": []
+    }
+  ],
+  "__v": 4
+},
+{
+  "_id": {
+    "$oid": "67ff7eab48459736b16f248e"
+  },
+  "name": "Volleyball Court",
+  "description": "Sand volleyball court available for team games.",
+  "slots": [
+    {
+      "timeRange": "9am-12pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "1pm-3pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": []
+    },
+    {
+      "timeRange": "4pm-6pm",
+      "capacity": 2,
+      "booked": 0,
+      "bookings": []
+    }
+  ],
+  "__v": 1
+}]
